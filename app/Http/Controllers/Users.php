@@ -46,10 +46,12 @@ class Users extends Controller
 
     /**
      * Display the specified resource.
-     */
+     */ 
     public function show(string $id)
     {
-        //
+        $item = User::find($id);
+        // return view('modules/users/show', compact('item'));
+        return view('modules/users/show', compact('item'));
     }
 
     /**
