@@ -16,7 +16,7 @@ class Users extends Controller
         normalmente se usa de all para traer todos los registros pero usaremos paginate directamente
         para mostrar los registros de 2 en 2
         */
-        $items = User::paginate(2);
+        $items = User::paginate(3);
         // Se manda  a la vista mediante compact, sin el signo de pesos porque esta implicito que compact manda una variable
         return view('modules/users/index', compact('items'));
     }
@@ -50,7 +50,7 @@ class Users extends Controller
     public function show(string $id)
     {
         $item = User::find($id);
-        // return view('modules/users/show', compact('item'));
+        
         return view('modules/users/show', compact('item'));
     }
 
@@ -59,7 +59,8 @@ class Users extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = User::find($id);
+        return view('modules/users/edit', compact('item'));
     }
 
     /**
@@ -67,7 +68,10 @@ class Users extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = User::find($id);
+        $item->name = $request->name;
+        $item->save();
+        return to_route('index');
     }
 
     /**
@@ -75,6 +79,11 @@ class Users extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Buscando el user por el de
+        $item = User::find($id);
+        // Una vez que lo encuentres eliminalo
+        $item->delete();
+        // Cuando lo hayas eliminado regresa al index
+        return to_route('index');
     }
 }

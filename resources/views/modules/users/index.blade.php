@@ -25,11 +25,13 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
-                                    <form action="" method="post">
+                                    <form action="{{ route('destroy', $item->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
                                         <a href="{{ route('show', $item->id) }}" class="btn btn-info">
                                             <i class="fa-solid fa-list"></i> Mostrar
                                         </a>
-                                        <a href="" class="btn btn-danger">
+                                        <a href="{{ route('edit', $item ->id) }}" class="btn btn-danger">
                                             <i class="fa-solid fa-pen"></i> Editar
                                         </a>
                                         <button class="btn btn-danger">
